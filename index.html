@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+    <head>
+        <title>example</title>
+        <style>
+body {
+    font: 100 16px/24px sans-serif;
+    color: #999;
+}
+.result {
+    font-size: 48px;
+    line-height: 100px;
+}
+        </style>
+    </head>
+    <body>
+        <br />
+        <br />
+        <center>
+            are my devtools open?
+        </center>
+        <center class="result" id="result">Maybe, I don't know</center>
+
+        <script src="detect-devtools.js"></script>
+        <script>
+var debounce = function debounce (fn, delay) {
+    var timer = 0,
+        doit = function _doit () {
+            timer = 0;
+            fn();
+        },
+        later = function _later () {
+            if (timer) {
+                clearTimeout(timer);
+            }
+            timer = setTimeout(doit, (delay || 200));
+        };
+    return later;
+};
+
+var log = function (e) {
+    document.getElementById("result").style.fontWeight = "bold";
+    document.getElementById("result").innerHTML = (window.devtools ? "Probably, yeah" : "I don't think so");
+    debounce(function () {
+        document.getElementById("result").style.fontWeight = "normal";
+    }, 500)();
+};
+
+window.addEventListener('devtools', log);
+window.addEventListener('DOMContentLoaded', log);
+        </script>
+    </body>
+</html>
