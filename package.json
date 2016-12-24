@@ -1,0 +1,11 @@
+{
+    "name": "devtools-detection",
+    "main": "devtools-detection.js",
+    "version": "0.0.1",
+    "engines": {
+        "node" : ">=0.10.X"
+    },
+    "dependencies": {
+        "uglify-js"      : "~2.6.1"
+    }
+}

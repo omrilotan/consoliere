@@ -34,31 +34,18 @@ body {
 
         <script src="detect-devtools.js"></script>
         <script>
-var debounce = function debounce (fn, delay) {
-    var timer = 0,
-        doit = function _doit () {
-            timer = 0;
-            fn();
-        },
-        later = function _later () {
-            if (timer) {
-                clearTimeout(timer);
-            }
-            timer = setTimeout(doit, (delay || 200));
-        };
-    return later;
-};
+var log = function (evt) {
+    var isOpen = evt.detail.devtools;
 
-var log = function (e) {
     document.getElementById("result").classList.add("emph");
-    document.getElementById("result").innerText = (window.devtools ? "Probably, yeah" : "I don't think so");
+    document.getElementById("result").innerText = (isOpen ? "Probably, yeah" : "I don't think so");
     debounce(function () {
         document.getElementById("result").classList.remove("emph");
     }, 500)();
 };
 
 window.addEventListener('devtools', log);
-window.addEventListener('DOMContentLoaded', log);
+window.dispatchEvent(new CustomEvent("trigger-devtools"));
         </script>
         <script src="https://omrilotan.github.io/sourcefiles.js" async></script>
     </body>
