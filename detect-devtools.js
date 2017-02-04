@@ -1,14 +1,15 @@
 (function (window) {
-    var devtools;
+    const debounced = debounce(detectDevTools);
+    let devtools;
 
     // Update each window resize event
-    window.addEventListener('resize', debounce(detectDevTools));
+    window.addEventListener('resize', debounced);
 
     // Allow to trigger 'devtools' event
-    window.addEventListener('trigger-devtools', debounce(detectDevTools));
+    window.addEventListener('trigger-devtools', debounced);
 
     function detectDevTools (e) {
-        var conditions = [
+        const conditions = [
 
                 // width diff
                 (window.outerWidth - window.innerWidth > 150),
@@ -18,8 +19,8 @@
 
                 // Firebug initialized
                 (window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized)
-            ],
-            before = devtools;
+            ];
+        const before = devtools;
 
         // We only assume whether dev tools are open
         devtools = conditions.indexOf(true) !== -1;
@@ -30,21 +31,3 @@
         }
     };
 }(window));
-
-function debounce(subscriber, delay = 200) {
-    let timer = 0;
-
-    function debounced() {
-        clearTimeout(timer);
-        let args = arguments;
-        [].unshift.call(args, this);
-
-        timer = setTimeout(Function.prototype.bind.apply(register, args), delay);
-    }
-
-    function register() {
-        timer = 0;
-        subscriber.apply(this, arguments);
-    }
-    return debounced;
-};
