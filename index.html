@@ -1,53 +1,61 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" />
-        <title>detect-devtools example</title>
-        <meta http-equiv="Cache-Control" content="no-cache"/>
-        <meta name="googlebot" content="noindex" />
-        <meta name="robots" content="noindex" />
-        <style>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" />
+		<title>detect-devtools example</title>
+		<meta http-equiv="Cache-Control" content="no-cache"/>
+		<meta name="googlebot" content="noindex" />
+		<meta name="robots" content="noindex" />
+		<style>
 body {
-    font: 100 16px/24px sans-serif;
-    color: #999;
+	font: 100 16px/24px sans-serif;
+	color: #999;
 }
 .result {
-    font-size: 48px;
-    line-height: 100px;
-    transition: color .3s;
+	font-size: 48px;
+	line-height: 100px;
+	transition: color .3s;
 }
 .emph {
-    color: #000;
+	color: #000;
 }
-        </style>
-    </head>
-    <body>
-        <br />
-        <br />
-        <center>
-            are my devtools open?
-        </center>
-        <center class="result" id="result">Maybe, I don't know</center>
-        <a href="https://github.com/omrilotan/detect-devtools" class="source"></a>
+		</style>
+	</head>
+	<body>
+		<br>
+		<br>
+		<center>
+			are my devtools open?
+		</center>
+		<center class="result" id="result">Maybe, I don't know</center>
 
-        <script src="debounce.js"></script>
-        <script src="detect-devtools.js"></script>
-        <script>
-var log = function (evt) {
-    var isOpen = evt.detail.devtools;
+		<script type="module">
+import { devtoolsOpen, debounce, warn } from './index.js';
 
-    document.getElementById("result").classList.add("emph");
-    document.getElementById("result").innerText = (isOpen ? "Probably, yeah" : "I don't think so");
-    debounce(function () {
-        document.getElementById("result").classList.remove("emph");
-    }, 500)();
-};
+warn();
 
-window.addEventListener('devtools', log);
-window.dispatchEvent(new CustomEvent("trigger-devtools"));
-        </script>
-        <script src="https://omrilotan.github.io/sourcefiles.js" async></script>
-    </body>
+function log(evt) {
+	const isOpen = devtoolsOpen();
+	const text = isOpen
+		? 'Probably, yeah'
+		: 'I don\'t think so'
+	;
+	if (result.innerText === text) {
+		return;
+	}
+
+	result.classList.add('emph');
+	result.innerText = text;
+	debounce(
+		() => result.classList.remove('emph'),
+		500
+	)();
+}
+
+window.addEventListener('resize', debounce(log));
+log();
+		</script>
+	</body>
 </html>

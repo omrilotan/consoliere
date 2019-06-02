@@ -1,0 +1,26 @@
+{
+  "name": "@dangerbot/devtools",
+  "version": "0.0.0",
+  "description": "Warn users about the dangers of devtools paste",
+  "keywords": [
+    "devtools",
+    "danger",
+    "warning"
+  ],
+  "author": "omrilotan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omrilotan/detect-devtools.git"
+  },
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "rollup ./iife.js --format iife --name 'bundle' --file bundle/iife.js",
+    "postbuild": "uglifyjs bundle/iife.js --compress --mangle --output=bundle/iife.min.js --source-map"
+  },
+  "devDependencies": {
+    "rollup": "^1.13.1",
+    "uglify-es": "git+https://github.com/mishoo/UglifyJS2.git#harmony"
+  }
+}
