@@ -1,7 +1,7 @@
 {
-  "name": "@dangerbot/devtools",
+  "name": "consoliere",
   "version": "0.0.0",
-  "description": "Warn users about the dangers of devtools paste",
+  "description": "🛎 assistance with browser console",
   "keywords": [
     "devtools",
     "danger",
@@ -17,11 +17,11 @@
   "type": "module",
   "scripts": {
     "build": "rollup ./iife.js --format iife --name 'bundle' --file bundle/iife.js",
-    "postbuild": "uglifyjs bundle/iife.js --compress --mangle --output=bundle/iife.min.js --source-map"
+    "postbuild": "uglifyjs bundle/iife.js --compress --mangle --output=bundle/iife.min.js --source-map",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "rollup": "^1.13.1",
     "uglify-es": "git+https://github.com/mishoo/UglifyJS2.git#harmony"
-  },
-  "private": true
+  }
 }
