@@ -22,5 +22,6 @@
   "devDependencies": {
     "rollup": "^1.13.1",
     "uglify-es": "git+https://github.com/mishoo/UglifyJS2.git#harmony"
-  }
+  },
+  "private": true
 }
