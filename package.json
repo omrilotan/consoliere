@@ -21,7 +21,7 @@
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "rollup": "^1.13.1",
+    "rollup": "^4.24.0",
     "uglify-es": "git+https://github.com/mishoo/UglifyJS2.git#harmony"
   }
 }
